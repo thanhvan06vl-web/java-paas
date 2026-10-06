@@ -1,0 +1,9 @@
+FROM eclipse-temurin:17-jdk AS build
+WORKDIR /app
+COPY App.java .
+RUN javac -encoding UTF-8 App.java
+
+FROM eclipse-temurin:17-jre
+WORKDIR /app
+COPY --from=build /app/App.class .
+CMD ["java", "App"]
